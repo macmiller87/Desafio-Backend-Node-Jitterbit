@@ -26,7 +26,7 @@ export const orderRepository =  {
     },
 
     async findOrderByNumberOrder(orderId) {
-        const findNumberOrder = await prismaService.order.findUnique({
+        const findNumberOrder = await prismaService.order.findFirst({
             where: {
                 orderId: orderId 
             }
@@ -69,6 +69,21 @@ export const orderRepository =  {
         });
         
         return listAllOrders;
-    }
+    },
 
+    async updateOrderField(orderId) {
+        const updateFiled = await prismaService.order.update({
+            where: {
+                orderId: orderId.orderId,
+            },
+            data: {
+                value: orderId.value
+            },
+            include: {
+                Items: true
+            }
+        });
+
+        return updateFiled;
+    }
 }
