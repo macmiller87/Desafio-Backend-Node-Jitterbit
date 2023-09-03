@@ -33,6 +33,29 @@ export const orderRepository =  {
         });
 
         return findNumberOrder;
+    },
+
+    async findOrderById(orderId) {
+        const findOrderById = await prismaService.order.findUnique({
+            where: {
+                orderId: orderId 
+            },
+            include: {
+                Items: true
+            }
+        });
+
+        return findOrderById;
+    },
+
+    async findProductIdById(productId) {
+        const findProductId = await prismaService.items.findUnique({
+            where: {
+                productId: productId 
+            },
+        });
+
+        return findProductId;
     }
 
 }
