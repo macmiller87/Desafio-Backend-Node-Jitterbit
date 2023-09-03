@@ -8,9 +8,10 @@ createOrderRoute.post("/order", async (request, response) => {
     const { orderId, value, productId, quantity, price } = request.body;
 
     const findOderNumber = await orderRepository.findOrderByNumberOrder(orderId);
+    const findItemByproductId = await orderRepository.findProductIdById(productId);
 
     if(orderId === "" || value === "" || productId === "" || quantity === "" || price === "") {
-        return response.status(401).json({ message: "Null Data is Not Allowed, Please fill in All Datas !" })
+        return response.status(401).json({ message: "Null Data is Not Allowed, Please fill in All Datas !" });
 
     }else if(typeof(value) != "number" || typeof(productId) != "number" || typeof(quantity) != "number" || typeof(price) != "number") {
         return response.status(401).json({ message: "The field's, must be a number !" });
@@ -18,22 +19,26 @@ createOrderRoute.post("/order", async (request, response) => {
     } else {
 
         if(findOderNumber) {
-            return response.status(401).json({ message: "OrderNumber Already Exists !" })
+            return response.status(401).json({ message: "OrderNumber Already Exists !" });
+
+        }else if(findItemByproductId) {
+            return response.status(401).json({ message: "ProductId Already exists !" });
+
+        }else {
+            const order = await orderRepository.createOrder({
+                orderId,
+                value,
+            });
+    
+            const item = await orderRepository.createItem({
+                orderId: orderId,
+                productId,
+                quantity,
+                price
+            });
+    
+            order.Items.push(item);
+            return response.status(201).json(order);
         }
-
-        const order = await orderRepository.createOrder({
-            orderId,
-            value,
-        });
-
-        const item = await orderRepository.createItem({
-            orderId: orderId,
-            productId,
-            quantity,
-            price
-        });
-
-        order.Items.push(item);
-        return response.status(200).json(order);
     }
 });
