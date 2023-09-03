@@ -1,0 +1,21 @@
+{
+  "name": "Desafio-Backend-Node-Jitterbit",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/macmiller87/Desafio-Backend-Node-Jitterbit.git",
+  "author": "macmiller87 <macamagolf@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "dev:debug": "node --inspect src/server.js"
+  },
+  "dependencies": {
+    "@prisma/client": "5.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.2.0"
+  }
+}
