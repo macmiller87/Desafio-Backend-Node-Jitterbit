@@ -56,6 +56,19 @@ export const orderRepository =  {
         });
 
         return findProductId;
+    },
+
+    async listAllOrders() {
+        const listAllOrders = await prismaService.order.findMany({
+            orderBy: {
+                orderId: "asc"
+            },
+            include: {
+                Items: true
+            }
+        });
+        
+        return listAllOrders;
     }
 
 }
