@@ -1,0 +1,344 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Desafio-Backend-Node-Jitterbit",
+        "description": "This is an Desafio-Backend-Node-Jitterbit",
+        "version": "1.0.0",
+        "contact": {
+            "email": "macamagolf@gmail.com"
+        }
+    },
+    "paths": {
+        "/order": {
+            "post": {
+                "tags": ["Create Order"],
+                "summary": ["Create Order"],
+                "description": "Create a New Order",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "orderId": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "number"
+                                    },
+                                    "productId": {
+                                        "type": "number"
+                                    },
+                                    "quantity": {
+                                        "type": "number"
+                                    },
+                                    "price": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "description": "Mabdatory fields for creating an Order",
+                            "example": {
+                                "orderId": "v10089015vdb-01",
+                                "value": 88,
+                                "productId": 2232,
+                                "quantity": 1,
+                                "price": 10
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "orderId": {
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "number"
+                                            },
+                                            "productId": {
+                                                "type": "number"
+                                            },
+                                            "quantity": {
+                                                "type": "number"
+                                            },
+                                            "price": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "orderId": "v10089015vdb-01",
+                                        "value": 10000,
+                                        "creationDate": "2023-09-03T19:33:48.973Z",
+                                        "Items": [
+                                            {
+                                                "orderId": "v10089015vdb-01",
+                                                "productId": 2434,
+                                                "quantity": 1,
+                                                "price": 1000
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Null Data is Not Allowed, Please fill in All Datas !"
+                    },
+                    "401": {
+                        "description": "The field ORDERID, must be a string !"
+                    },
+                    "401": {
+                        "description": "The field's, must be a number !"
+                    },
+                    "401": {
+                        "description": "OrderNumber Already Exists !"
+                    },
+                    "401": {
+                        "description": "ProductId Already exists !"
+                    }
+                }
+            }
+        },
+        "/order/{orderId}": {
+            "get": {
+                "tags": ["List Specific Order"],
+                "summary": "List Specific Order And Items",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orderId",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "orderId": {
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "number"
+                                            },
+                                            "productId": {
+                                                "type": "number"
+                                            },
+                                            "quantity": {
+                                                "type": "number"
+                                            },
+                                            "price": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "orderId": "v10089015vdb-01",
+                                    "value": 10000,
+                                    "creationDate": "2023-09-03T19:33:48.973Z",
+                                    "Items": [
+                                        {
+                                            "orderId": "v10089015vdb-01",
+                                            "productId": 2434,
+                                            "quantity": 1,
+                                            "price": 1000
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "OrderId Not Found !"
+                    }
+                }
+            }
+        },
+        "/orders/list": {
+            "get": {
+                "tags": ["List All Orders"],
+                "summary": "List All Orders And Items",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "orderId": {
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "number"
+                                            },
+                                            "productId": {
+                                                "type": "number"
+                                            },
+                                            "quantity": {
+                                                "type": "number"
+                                            },
+                                            "price": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "orderId": "v10089015vdb-01",
+                                    "value": 10000,
+                                    "creationDate": "2023-09-03T19:33:48.973Z",
+                                    "Items": [
+                                        {
+                                            "orderId": "v10089015vdb-01",
+                                            "productId": 2434,
+                                            "quantity": 1,
+                                            "price": 1000
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }    
+            }   
+        },
+        "/orderr/{orderId}": {
+            "patch": {
+                "tags": ["Update Order Field"],
+                "summary": "Update Specific Order Field",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orderId",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "value": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            "description": "Mabdatory field for Update Specific Order Field",
+                            "example": {
+                                "value": 88
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "orderId": {
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "number"
+                                            },
+                                            "productId": {
+                                                "type": "number"
+                                            },
+                                            "quantity": {
+                                                "type": "number"
+                                            },
+                                            "price": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "orderId": "v10089015vdb-01",
+                                    "value": 10000,
+                                    "creationDate": "2023-09-03T19:33:48.973Z",
+                                    "Items": [
+                                        {
+                                            "orderId": "v10089015vdb-01",
+                                            "productId": 2434,
+                                            "quantity": 1,
+                                            "price": 1000
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "The field, must be a number !"
+                    },
+                    "401": {
+                        "description": "Null Data is Not Allowed, Please fill in All Datas !"
+                    },
+                    "404": {
+                        "description": "OrderId Not Found !"
+                    }
+                }
+            }
+        },
+        "/order/delete/{orderId}": {
+            "delete": {
+                "tags": ["Delete Specific Order"],
+                "summary": "Delete Specific Order and Items",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "orderId",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order Delete With Sucess !"
+                    },
+                    "404": {
+                        "description": "OrderId Not Found !"
+                    }
+                }
+            }
+        }
+    }
+}
