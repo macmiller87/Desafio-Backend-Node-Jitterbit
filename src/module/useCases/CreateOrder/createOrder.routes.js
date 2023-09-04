@@ -7,16 +7,19 @@ createOrderRoute.post("/order", async (request, response) => {
 
     const { orderId, value, productId, quantity, price } = request.body;
 
-    const findOderNumber = await orderRepository.findOrderByNumberOrder(orderId);
-    const findItemByproductId = await orderRepository.findProductIdById(productId);
-
     if(orderId === "" || value === "" || productId === "" || quantity === "" || price === "") {
         return response.status(401).json({ message: "Null Data is Not Allowed, Please fill in All Datas !" });
+
+    }else if(typeof(orderId) != "string") {
+        return response.status(401).json({ message: "The field ORDERID, must be a string !" });
 
     }else if(typeof(value) != "number" || typeof(productId) != "number" || typeof(quantity) != "number" || typeof(price) != "number") {
         return response.status(401).json({ message: "The field's, must be a number !" });
 
-    } else {
+    }else {
+
+        const findOderNumber = await orderRepository.findOrderByNumberOrder(orderId);
+        const findItemByproductId = await orderRepository.findProductIdById(productId);
 
         if(findOderNumber) {
             return response.status(401).json({ message: "OrderNumber Already Exists !" });
