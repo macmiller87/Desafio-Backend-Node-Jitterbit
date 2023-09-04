@@ -85,5 +85,13 @@ export const orderRepository =  {
         });
 
         return updateFiled;
+    },
+
+    async deleteOrderById(orderId) {
+        await prismaService.order.delete({
+            where: {
+                orderId: orderId.orderId
+            }
+        });
     }
 }
