@@ -3,7 +3,7 @@ import { Router } from "express";
 
 export const updateSpecificOrderFiledRoute = Router();
 
-updateSpecificOrderFiledRoute.patch("/order/:orderId", async (request, response) => {
+updateSpecificOrderFiledRoute.patch("/orderr/:orderId", async (request, response) => {
 
     const { orderId } = request.params;
     const { value } = request.body;
@@ -11,7 +11,7 @@ updateSpecificOrderFiledRoute.patch("/order/:orderId", async (request, response)
     const findOrderById = await orderRepository.findOrderByNumberOrder(orderId);
 
     if(!findOrderById) {
-        return  response.status(404).json({ message: "Order Not Found !" });
+        return  response.status(404).json({ message: "OrderId Not Found !" });
 
     }else if(value === "") {
         return response.status(401).json({ message: "Null Data is Not Allowed, Please fill the field!" })
